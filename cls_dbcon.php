@@ -32,6 +32,12 @@ class cls_dbcon extends configuration {
      */
     public $mysqli;
     
+    /**
+     *
+     * @var mysqli_result
+     */
+    public $resultset;
+    
     
     function __construct() {
         parent::__construct();
@@ -40,7 +46,25 @@ class cls_dbcon extends configuration {
         if ($this->mysqli->connect_errno){
             trigger_error($this->mysqli->connect_errno, E_USER_ERROR);
         }
-    }   
+    }
+    
+    /**
+     * 
+     * @param string $query
+     * @return resultset or false on error
+     */
+    function query($query){
+        $retval = array();
+        $this->resultset = $this->mysqli->query($query);
+        if (!$this->resultset){
+            $retval["status"] = false;
+            $retval["error"] = $this->mysqli->errno;
+            $retval["error_string"] = $this->mysqli->error;
+        } else {
+            $retval["status"] = true;
+        }
+        return $retval;
+    }
     
     
 }

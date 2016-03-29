@@ -17,5 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once dirname(__FILE__) . '/cls_dbcon.php';
-print "Hello World\n";
+$GLOBALS["DBHOST"] = "mysql.hostinger.in";
+$GLOBALS["DBUSER"] = "u993810798_hari";
+$GLOBALS["DBPASS"] = "h35DheNyBY";
+$GLOBALS["DBNAME"] = "u993810798_hari";

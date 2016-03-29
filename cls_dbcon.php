@@ -33,4 +33,14 @@ class cls_dbcon extends configuration {
     public $mysqli;
     
     
+    function __construct() {
+        parent::__construct();
+        
+        $this->mysqli = new mysqli($this->db_host, $this->db_user, $this->db_pass, $this->db_database);
+        if ($this->mysqli->connect_errno){
+            trigger_error($this->mysqli->connect_errno, E_USER_ERROR);
+        }
+    }   
+    
+    
 }

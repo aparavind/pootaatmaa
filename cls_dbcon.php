@@ -67,4 +67,17 @@ class cls_dbcon extends configuration {
     }
     
     
+    function fetch_row(){
+        $retval = array();
+        $row = $this->resultset->fetch_row();
+        if (!$row){
+            $retval["status"] = false;
+        } else {
+            $retval["status"] = true;
+            $retval["retval"] = $row;
+        }
+        return $retval;
+    }
+    
+    
 }

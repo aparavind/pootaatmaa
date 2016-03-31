@@ -18,11 +18,12 @@
  */
 
 include_once dirname(__FILE__) . '/cls_dbcon.php';
-$clsdb = new cls_dbcon();
+include_once dirname(__FILE__) . "/cls_language.php";
 
 
 switch ($_REQUEST["PAGE"]){
     case "add_language" :
-        
+        $clsdb = new cls_language($_REQUEST["LANGUAGE"]);
+        break;
 }
 

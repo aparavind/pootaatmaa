@@ -79,5 +79,14 @@ class cls_dbcon extends configuration {
         return $retval;
     }
     
+    function last_insert_id(){
+        $rval["status"] = false;
+        if ($stat = $this->mysqli->insert_id){
+            $rval["status"] = true;
+            $rval["rval"] = $stat;
+        }
+        return $rval;
+    }
+    
     
 }

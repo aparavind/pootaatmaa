@@ -1,4 +1,5 @@
-<?php
+<!DOCTYPE html>
+    <?php
 
 /* 
  * Copyright (C) 2016 admin
@@ -17,12 +18,4 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once dirname(__FILE__) . '/cls_dbcon.php';
-$clsdb = new cls_dbcon();
-
-
-switch ($_REQUEST["PAGE"]){
-    case "add_language" :
-        
-}
 

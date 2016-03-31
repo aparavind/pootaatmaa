@@ -17,7 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$GLOBALS["DBHOST"] = "mysql.hostinger.in";
+$GLOBALS["DBHOST"] = "localhost";
 $GLOBALS["DBUSER"] = "u993810798_hari";
 $GLOBALS["DBPASS"] = "h35DheNyBY";
 $GLOBALS["DBNAME"] = "u993810798_hari";

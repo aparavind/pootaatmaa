@@ -18,4 +18,9 @@
  */
 
 include_once dirname(__FILE__) . '/cls_dbcon.php';
+$clsdb = new cls_dbcon();
+
+
+
+
 print "Hello World\n";

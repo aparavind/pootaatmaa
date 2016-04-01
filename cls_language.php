@@ -31,16 +31,20 @@ class cls_language extends cls_dbcon {
     public $languageid;
     
     public function __construct($language) {
+
         $this->tableName = "db_language_master";
+
         parent::__construct();
+
         if (! $this->exists($language)["status"]){
+
             $this->create_language($language);
         }
         
     }
     
     public function exists($language){
-        $query = "select languageid from db_language_master where language = $language";
+        $query = "select languageid from db_language_master where language = '$language'";
         $retval["status"] = false;
         $rval = $this->query($query);
         if ($rval["status"]){
@@ -55,18 +59,22 @@ class cls_language extends cls_dbcon {
     }
     
     public function create_language($language){
+
         $query = "insert into  db_language_master (language) values('$language')";
+
         $retval["status"] = false;
+
         $rval = $this->query($query);
+        
         if ($rval["status"]){
-            $rval3 = $this->last_insert_id();
+
+            $rval2 = $this->last_insert_id();
             if ($rval2["status"]){
+
                 $retval["status"] = true;
-                $retval["rval"] = $rval3["rval"];
+                $retval["rval"] = $rval2["rval"];
             }
-        } else {
-            print "the return val is {$rval["error_string"]}";
-        }
+        } 
         return $retval;        
     }
 }

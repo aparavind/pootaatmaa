@@ -19,7 +19,7 @@
 
 include_once dirname(__FILE__) . '/cls_dbcon.php';
 include_once dirname(__FILE__) . "/cls_language.php";
-
+include_once dirname(__FILE__) . "/error_handler.php";
 
 switch ($_REQUEST["PAGE"]){
     case "add_language" :

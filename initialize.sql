@@ -1,3 +1,14 @@
+/* creation of database
+CREATE USER 'u993810798_hari'@'localhost' IDENTIFIED BY  '***';
+
+GRANT USAGE ON * . * TO  'u993810798_hari'@'localhost' IDENTIFIED BY  '***' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
+
+GRANT ALL PRIVILEGES ON  `u993810798_hari` . * TO  'u993810798_hari'@'localhost';
+
+*/
+
+
+
 /* language master */
 create table db_language_master (
     languageid int(11) not null auto_increment primary key,
@@ -12,7 +23,7 @@ create table db_shelf_master (
 );
 
 /* author master */
-create table author_master (
+create table db_author_master (
     authorid int(11) not null auto_increment primary key,
     author varchar(255) not null unique key,
     author_application varchar(500)
@@ -27,6 +38,6 @@ create table book_master (
     len int(11),
     brd int(11),
     wdh int(11),
-    foreign key (authorid) references author_master (authorid) on delete set null,
-    foreign key (shelfid) references shelf_master (shelfid)  on delete set null
+    foreign key (authorid) references db_author_master (authorid) on delete set null,
+    foreign key (shelfid) references db_shelf_master (shelfid)  on delete set null
 );  

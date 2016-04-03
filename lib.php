@@ -71,3 +71,12 @@
         } 
         return $result; 
 }
+
+/**
+ * Converts array to json
+ * @param type $array
+ */
+function error_json($reason){
+    
+ //   return $
+}

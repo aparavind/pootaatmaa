@@ -58,6 +58,8 @@ class cls_funcs extends configuration {
             $this->error_description = "";
             return true;
         } else {
+            $GLOBALS["error"] = $retval["error"];
+            $GLOBALS["error_description"] = $retval["error_description"];
             $this->error = $retval["error"];
             $this->error_description = $retval["error_description"];
         }

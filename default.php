@@ -24,12 +24,28 @@ require_once dirname(__FILE__) . "/cls_funcs.php";
 include_once dirname(__FILE__) . '/cls_dbcon.php';
 include_once dirname(__FILE__) . "/cls_language.php";
 include_once dirname(__FILE__) . "/error_handler.php";
+include_once dirname(__FILE__) . '/cls_language_list.php';
 
 switch ($_REQUEST["PAGE"]){
     case "add_language" :
         $clsdb = new cls_language($_REQUEST["LANGUAGE"]);
-        print_r($clsdb);
+        if (!$clsdb->status){
+            trigger_error("unable to add new language", E_USER_ERROR);
+        }
         break;
+    case "get_language_list" :
+        $clslnl = new cls_language_list();
+        if ($clslnl->status){
+            $retval1 = $clslnl->populate_list();
+            if (!$retval1["status"]){
+                trigger_error("Error populating list", E_USER_ERROR);
+            } else {
+                print _format_json(json_encode($clslnl->id_list),true);
+            }
+        } else {
+            trigger_error("Error creating the list class", E_USER_ERROR);
+        }
+    
 }
 
 ?>

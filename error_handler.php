@@ -16,8 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 function myErrorHandler($errno, $errstr, $errfile, $errline){
+    
     if (!(error_reporting() & $errno)) {
         // This error code is not included in error_reporting
         return;
@@ -25,10 +25,13 @@ function myErrorHandler($errno, $errstr, $errfile, $errline){
     
     switch ($errno) {
     case E_USER_ERROR:
-        echo "<b>My ERROR</b> [$errno] $errstr<br />\n";
-        echo "  Fatal error on line $errline in file $errfile";
-        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
-        echo "Aborting...<br />\n";
+        $error["system_error"] = $GLOBALS["error"];
+        $error["error_description"] = $GLOBALS["error_description"];
+        $error["file"] = $errfile;
+        $error["lineno"] = $errline;
+        $error["errstr"] = $errstr;
+        $error["error"] = $errno;
+        print _format_json(json_encode($error),TRUE);
         exit($errno);
         break;
 

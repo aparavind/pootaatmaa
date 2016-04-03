@@ -22,8 +22,8 @@
  *
  * @author admin
  */
-require_once dirname(__FILE__) . "/cls_configuration.php";
-class cls_dbcon extends configuration {
+
+class cls_dbcon extends cls_funcs {
     //put your code here
     
     /**
@@ -59,7 +59,7 @@ class cls_dbcon extends configuration {
         if (!$this->resultset){
             $retval["status"] = false;
             $retval["error"] = $this->mysqli->errno;
-            $retval["error_string"] = $this->mysqli->error;
+            $retval["error_description"] = $this->mysqli->error;
         } else {
             $retval["status"] = true;
         }
@@ -81,7 +81,8 @@ class cls_dbcon extends configuration {
     
     function last_insert_id(){
         $rval["status"] = false;
-        if ($stat = $this->mysqli->insert_id){
+        $stat = $this->mysqli->insert_id;
+        if ($stat){
             $rval["status"] = true;
             $rval["rval"] = $stat;
         }

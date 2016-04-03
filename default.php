@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 
 /* 
@@ -16,7 +17,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+require_once dirname(__FILE__) . "/lib.php";
+require_once dirname(__FILE__) . "/config.php";
+require_once dirname(__FILE__) . "/cls_configuration.php";
+require_once dirname(__FILE__) . "/cls_funcs.php";
 include_once dirname(__FILE__) . '/cls_dbcon.php';
 include_once dirname(__FILE__) . "/cls_language.php";
 include_once dirname(__FILE__) . "/error_handler.php";
@@ -24,6 +28,8 @@ include_once dirname(__FILE__) . "/error_handler.php";
 switch ($_REQUEST["PAGE"]){
     case "add_language" :
         $clsdb = new cls_language($_REQUEST["LANGUAGE"]);
+        print_r($clsdb);
         break;
 }
 
+?>

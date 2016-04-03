@@ -18,50 +18,49 @@
  */
 
 /**
- * This stores the global variables. 
- * At presnet it just stores the variables as it is
+ * Description of class_funcs
  *
  * @author admin
  */
-class configuration {
+
+
+class cls_funcs extends configuration {
     //put your code here
-    
+    public $tableName;
+
     /**
-     * this is the mysql host. 
-     * we can consider different hosts for different set ups
-     * @var string
+     *values are
+     * 0 -> error
+     * 1 -> already exists
+     * 2 -> created
+     * 3 -> deleted
+     * 4 -> not yet created
+     * @var int
      */
-    public $db_host;
-    /**
-     *
-     * @var string
-     */
-    public $db_user;
-    /**
-     *
-     * @var string
-     */
-    public $db_pass;
+    public $status;
     
     /**
      *
-     * @var string
+     * @var int this is the last returned error 
      */
-    public $db_database;
+    public $error;
     
+    /**
+     *
+     * @var string description of error
+     */
+    public $error_description;
     
-    public function __construct() {
-        $this->db_database = $this->get_var("DBNAME");
-        $this->db_host = $this->get_var("DBHOST");
-        $this->db_pass = $this->get_var("DBPASS");
-        $this->db_user = $this->get_var("DBUSER");
-    }
-    
-    public static function get_var($varname){
-        if ($GLOBALS[$varname]){
-            return $GLOBALS[$varname];
+   
+    public function assign_retval_error($retval){
+        if ($retval["status"]){
+            $this->error = 0;
+            $this->error_description = "";
+            return true;
         } else {
-            return null;
+            $this->error = $retval["error"];
+            $this->error_description = $retval["error_description"];
         }
     }
+    
 }

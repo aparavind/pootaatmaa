@@ -80,4 +80,19 @@ class cls_language_list extends cls_dbcon{
        }
        return $rval;
    }
+   
+   /**
+    * THis gets 5 languages based on the frist string
+    * @param string $str
+    */
+   public function get_partial_list($str){
+       $cma = "";
+       foreach ($this->language_list as $value) {
+           if (preg_match("/$str/", $value)){
+               print $cma . $value;
+           } else {
+               $cma = ",";
+           }
+       }
+   }
 }

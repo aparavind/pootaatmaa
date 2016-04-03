@@ -45,6 +45,17 @@ switch ($_REQUEST["PAGE"]){
         } else {
             trigger_error("Error creating the list class", E_USER_ERROR);
         }
+        break;
+    case "partial_language_list" :
+        $clslnl = new cls_language_list();
+        if ($clslnl->status){
+            $retval1 = $clslnl->get_partial_list($_REQUEST["PARTIAL"]);
+            if ($clslnl->assign_retval_error($retval1)){
+                
+            }
+        } else {
+            trigger_error("Error creating the list class", E_USER_ERROR);
+        }
     
 }
 

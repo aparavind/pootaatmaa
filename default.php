@@ -40,7 +40,7 @@ switch ($_REQUEST["PAGE"]){
             if (!$retval1["status"]){
                 trigger_error("Error populating list", E_USER_ERROR);
             } else {
-                print _format_json(json_encode($clslnl->id_list),true);
+                print _format_json(json_encode($clslnl->id_list));
             }
         } else {
             trigger_error("Error creating the list class", E_USER_ERROR);

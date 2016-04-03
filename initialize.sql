@@ -30,7 +30,7 @@ create table db_author_master (
 );
 
 /* Book Master */
-create table book_master (
+create table db_book_master (
     bookid int(11) not null auto_increment primary key,
     book varchar(255) not null unique key,
     authorid int(11) , 

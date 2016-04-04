@@ -25,14 +25,19 @@ include_once dirname(__FILE__) . "/cls_language.php";
 include_once dirname(__FILE__) . "/error_handler.php";
 include_once dirname(__FILE__) . '/cls_language_list.php';
 
+$activity_page = split("__", $_REQUEST["PAGE"]);
+$activity = $activity_page[0];
+$obj = new $activity()
+
+
 switch ($_REQUEST["PAGE"]){
-    case "add_language" :
+    case "language__add" :
         $clsdb = new cls_language($_REQUEST["LANGUAGE"]);
         if (!$clsdb->status){
             trigger_error("unable to add new language", E_USER_ERROR);
         }
         break;
-    case "get_language_list" :
+    case "language_list__get" :
         $clslnl = new cls_language_list();
         if ($clslnl->status){
             $retval1 = $clslnl->populate_list();
@@ -45,7 +50,7 @@ switch ($_REQUEST["PAGE"]){
             trigger_error("Error creating the list class", E_USER_ERROR);
         }
         break;
-    case "partial_language_list" :
+    case "language_list__partial_get" :
         $clslnl = new cls_language_list();
         if ($clslnl->status){
             $retval1 = $clslnl->get_partial_list($_REQUEST["PARTIAL"]);

@@ -25,11 +25,6 @@ include_once dirname(__FILE__) . "/cls_language.php";
 include_once dirname(__FILE__) . "/error_handler.php";
 include_once dirname(__FILE__) . '/cls_language_list.php';
 
-$activity_page = split("__", $_REQUEST["PAGE"]);
-$activity = $activity_page[0];
-$obj = new $activity()
-
-
 switch ($_REQUEST["PAGE"]){
     case "language__add" :
         $clsdb = new cls_language($_REQUEST["LANGUAGE"]);
@@ -60,6 +55,26 @@ switch ($_REQUEST["PAGE"]){
         } else {
             trigger_error("Error creating the list class", E_USER_ERROR);
         }
+        break;
+    case "author__add" :
+        $clsdb = new cls_author($_REQUEST["AUTHOR"],$_REQUEST["AUTHOR_SERIES"]);
+        if (!$clsdb->status){
+            trigger_error("unable to add new author", E_USER_ERROR);
+        }
+        break;
+    case "author_list__get" :
+        $clslnl = new cls_language_list();
+        if ($clslnl->status){
+            $retval1 = $clslnl->populate_list();
+            if (!$retval1["status"]){
+                trigger_error("Error populating list", E_USER_ERROR);
+            } else {
+                print _format_json(json_encode($clslnl->id_list));
+            }
+        } else {
+            trigger_error("Error creating the list class", E_USER_ERROR);
+        }
+        break;
     
 }
 

@@ -74,7 +74,10 @@ class cls_author extends cls_dbcon {
                 $this->authorid = $rval2["retval"][0];
                 $this->status = 1;
                 $retval["retval"]["authorid"] = $rval2["retval"][0];
-            } 
+                $retval["retval"]["status"] = true;
+            } else {
+                $retval["retval"]["status"] = false;
+            }
         } else {
             $retval = $rval;
         }

@@ -29,6 +29,12 @@ create table db_author_master (
     author_application varchar(500)
 );
 
+create table db_publication_master (
+    publicationid int(11) not null auto_increment primary key,
+    publication varchar(255) not null unique key,
+    publication_series varchar(255) comment 'ex. monthly : in books will write Mar05' 
+);
+
 /* Book Master */
 create table db_book_master (
     bookid int(11) not null auto_increment primary key,
@@ -44,10 +50,4 @@ create table db_book_master (
     foreign key (authorid) references db_author_master (authorid) on delete set null,
     foreign key (shelfid) references db_shelf_master (shelfid)  on delete set null
 ); 
-
-create table db_publication_master (
-    publicationid int(11) not null auto_increment primary key,
-    publication varchar(255) not null unique key,
-    publication_series varchar(255) comment 'ex. monthly : in books will write Mar05' 
-);
     

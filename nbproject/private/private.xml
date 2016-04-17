@@ -3,10 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/apps/projects/pootaatmaa/vendor/pimple/pimple/ext/pimple/pimple.c</file>
-            <file>file:/C:/apps/projects/pootaatmaa/default.php</file>
-            <file>file:/C:/apps/projects/pootaatmaa/vendor/pimple/pimple/ext/pimple/tests/014.phpt</file>
-            <file>file:/C:/apps/projects/pootaatmaa/initialize.sql</file>
+            <file>file:/develop/Projects/pootaatmaa/cls_language.php</file>
+            <file>file:/develop/Projects/pootaatmaa/cls_funcs.php</file>
+            <file>file:/develop/Projects/pootaatmaa/cls_author.php</file>
+            <file>file:/develop/Projects/pootaatmaa/default.php</file>
+            <file>file:/develop/Projects/pootaatmaa/cls_author_list.php</file>
         </group>
     </open-files>
 </project-private>

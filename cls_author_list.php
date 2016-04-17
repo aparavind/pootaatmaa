@@ -64,7 +64,7 @@ class cls_language_list extends cls_dbcon{
    }
    
    public function populate_list(){
-       $query = "select language,languageid from db_language_master";
+       $query = "select language,languageid from db_author_master";
        $retval = $this->query($query);
        $rval["status"] = true;
        if ($this->assign_retval_error($retval)){

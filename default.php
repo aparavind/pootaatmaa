@@ -63,7 +63,7 @@ switch ($_REQUEST["PAGE"]){
         }
         break;
     case "author_list__get" :
-        $clslnl = new cls_language_list();
+        $clslnl = new cls_author_list();
         if ($clslnl->status){
             $retval1 = $clslnl->populate_list();
             if (!$retval1["status"]){
@@ -77,9 +77,9 @@ switch ($_REQUEST["PAGE"]){
         break;
     case book__add:
         $book_name = $_REQUEST["BNAME"];
-        $book_author = $_REQUEST["BAUTHOR"];
-        $book_publication = $_REQUEST["BPUBLICATION"];
-        $book_shelf = $_REQUEST["BSHELF"];
+        $book_author = $_REQUEST["BAUTHOR_ID"];
+        $book_publication = $_REQUEST["BPUBLICATION_ID"];
+        $book_shelf = $_REQUEST["BSHELF_ID"];
         
         
     

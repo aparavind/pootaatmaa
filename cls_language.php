@@ -50,10 +50,12 @@ class cls_language extends cls_dbcon {
         $this->tableName = "db_language_master";
         parent::__construct();
         $rval2 = $this->exists($language);
+        print_r($rval2);
         if ($this->assign_retval_error($rval2)){
-            if (! $rval2["retval"]["languageid"]){
+            if (! $rval2["retval"]["status"]){
                 $rval = $this->create_language($language);
                 $this->assign_retval_error($rval);
+
             }
         } else {
             $GLOBALS["error"] = $this->error;
@@ -74,11 +76,13 @@ class cls_language extends cls_dbcon {
                 $this->languageid = $rval2["retval"][0];
                 $this->status = 1;
                 $retval["retval"]["languageid"] = $rval2["retval"][0];
+                $retval["retval"]["status"] = TRUE;
+            } else {
+                $retval["retval"]["status"] = FALSE;
             } 
         } else {
             $retval = $rval;
         }
-        $this->current_language = $language;
         $this->last_action = 4;
         return $retval;
         

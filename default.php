@@ -75,7 +75,16 @@ switch ($_REQUEST["PAGE"]){
             trigger_error("Error creating the list class", E_USER_ERROR);
         }
         break;
+    case book__add:
+        $book_name = $_REQUEST["BNAME"];
+        $book_author = $_REQUEST["BAUTHOR"];
+        $book_publication = $_REQUEST["BPUBLICATION"];
+        $book_shelf = $_REQUEST["BSHELF"];
+        
+        
     
 }
+
+
 
 ?>

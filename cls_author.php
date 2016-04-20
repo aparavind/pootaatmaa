@@ -84,7 +84,6 @@ class cls_author extends cls_dbcon {
         $this->current_author = $author;
         $this->last_action = 4;
         return $retval;
-        
     }
     
     public function create_author($author,$author_application = ""){

@@ -24,6 +24,10 @@ include_once dirname(__FILE__) . '/cls_dbcon.php';
 include_once dirname(__FILE__) . "/cls_language.php";
 include_once dirname(__FILE__) . "/error_handler.php";
 include_once dirname(__FILE__) . '/cls_language_list.php';
+include_once dirname(__FILE__) . '/cls_author_list.php';
+include_once dirname(__FILE__) . '/cls_author.php';
+include_once dirname(__FILE__) . '/cls_shelf_list.php';
+include_once dirname(__FILE__) . '/cls_shelf.php';
 
 switch ($_REQUEST["PAGE"]){
     case "language__add" :
@@ -57,13 +61,33 @@ switch ($_REQUEST["PAGE"]){
         }
         break;
     case "author__add" :
-        $clsdb = new cls_author($_REQUEST["AUTHOR"],$_REQUEST["AUTHOR_SERIES"]);
+        $clsdb = new cls_author($_REQUEST["AUTHOR"]);
         if (!$clsdb->status){
             trigger_error("unable to add new author", E_USER_ERROR);
         }
         break;
     case "author_list__get" :
         $clslnl = new cls_author_list();
+        if ($clslnl->status){
+            $retval1 = $clslnl->populate_list();
+            if (!$retval1["status"]){
+                trigger_error("Error populating list", E_USER_ERROR);
+            } else {
+                print _format_json(json_encode($clslnl->id_list));
+            }
+        } else {
+            trigger_error("Error creating the list class", E_USER_ERROR);
+        }
+        break;
+    case "shelf__add" :
+        
+        $clsdb = new cls_shelf($_REQUEST["SHELF"],$_REQUEST["SHELF_ADDRESS"]);
+        if (!$clsdb->status){
+            trigger_error("unable to add new shelf", E_USER_ERROR);
+        }
+        break;
+    case "shelf_list__get" :
+        $clslnl = new cls_shelf_list();
         if ($clslnl->status){
             $retval1 = $clslnl->populate_list();
             if (!$retval1["status"]){

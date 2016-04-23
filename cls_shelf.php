@@ -18,42 +18,42 @@
  */
 
 /**
- * Description of cls_author
+ * Description of cls_shelf
  *
- * @author admin
+ * @shelf admin
  */
 require_once dirname(__FILE__) . "/cls_dbcon.php";
-class cls_author extends cls_dbcon {
+class cls_shelf extends cls_dbcon {
     /**
      *
      * @var string
      */
-    public $current_author;
+    public $current_shelf;
     
     /**
      *
      * @var int
      */
-    public $authorid;
+    public $shelfid;
     
     /**
      * values are 
-     * 1 : create author
-     * 2 : delete author
-     * 3 : add author
-     * 4 : check author exists
+     * 1 : create shelf
+     * 2 : delete shelf
+     * 3 : add shelf
+     * 4 : check shelf exists
      * @var int
      */
     public $last_action;
     
-    public function __construct($author) {
-        $this->tableName = "db_author_master";
+    public function __construct($shelf,$shelf_location = NULL) {
+        $this->tableName = "db_shelf_master";
         parent::__construct();
-        $rval2 = $this->exists($author);
+        $rval2 = $this->exists($shelf);
         if ($this->assign_retval_error($rval2)){
             if (! $rval2["retval"]["status"]){
 
-                $rval = $this->create_author($author);
+                $rval = $this->create_shelf($shelf,$shelf_location);
                 $this->assign_retval_error($rval);
             }
         } else {
@@ -62,18 +62,18 @@ class cls_author extends cls_dbcon {
         }
     }
     
-    public function exists($author){
-        $query = "select authorid from db_author_master where author = '$author'";
+    public function exists($shelf){
+        $query = "select shelfid from db_shelf_master where shelf = '$shelf'";
         $retval["status"] = false;
         $rval = $this->query($query);
         if ($rval["status"]){
-            $this->status = 4;   // assuming the author is not created
+            $this->status = 4;   // assuming the shelf is not created
             $retval["status"] = true;  // As the query has suceeded
             $rval2 = $this->fetch_row();
             if ($rval2["status"]){
-                $this->authorid = $rval2["retval"][0];
+                $this->shelfid = $rval2["retval"][0];
                 $this->status = 1;
-                $retval["retval"]["authorid"] = $rval2["retval"][0];
+                $retval["retval"]["shelfid"] = $rval2["retval"][0];
                 $retval["retval"]["status"] = TRUE;
             } else {
                 $retval["retval"]["status"] = FALSE;
@@ -86,15 +86,15 @@ class cls_author extends cls_dbcon {
         
     }
     
-    public function create_author($author,$author_application = ""){
+    public function create_shelf($shelf,$shelf_location = ""){
         $this->last_action = 1;
-        $names[] = "author";
-        $values[] = "'$author'";
-        if ($author_application) {
-            $names[] = "author_application";
-            $values[] = "'$author_application'";
+        $names[] = "shelf";
+        $values[] = "'$shelf'";
+        if ($shelf_location) {
+            $names[] = "shelf_address";
+            $values[] = "'$shelf_location'";
         }
-        $query = "insert into  db_author_master (". 
+        $query = "insert into  db_shelf_master (". 
                 implode(",", $names).
                 ") values(".
                 implode(",",$values) .
@@ -107,7 +107,7 @@ class cls_author extends cls_dbcon {
                 $this->status = 2;
                 $retval["status"] = true;
                 $retval["rval"] = $rval2["rval"];
-                $this->authorid = $rval2["rval"];
+                $this->shelfid = $rval2["rval"];
             } else {
                 $this->status = 0;
                 $retval = $rval2;

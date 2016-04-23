@@ -18,27 +18,27 @@
  */
 
 /**
- * Description of cls_author_list
+ * Description of cls_shelf_list
  *
- * @author admin
+ * @shelf admin
  */
-class cls_author_list extends cls_dbcon{
+class cls_shelf_list extends cls_dbcon{
     //put your code here
     
     /**
-     * Array of all the authors the key is author name and value id
-     * @var cls_author[]
+     * Array of all the shelfs the key is shelf name and value id
+     * @var cls_shelf[]
      */
-    public $author_list;
+    public $shelf_list;
     
     /**
-     * Array of all the author key is id and value is name
+     * Array of all the shelf key is id and value is name
      * @var 
      */
     public $id_list;
     
     /**
-     * Array of all the author key is id and value is object
+     * Array of all the shelf key is id and value is object
      * @var type 
      */
     public $obj_list;
@@ -57,21 +57,21 @@ class cls_author_list extends cls_dbcon{
      */
     public function __construct() {
         parent::__construct();
-        $this->author_list = array();
+        $this->shelf_list = array();
         $this->id_list = array();
         $this->obj_list = array();
         $this->status = 2;
    }
    
    public function populate_list(){
-       $query = "select author,authorid from db_author_master";
+       $query = "select shelf,shelfid from db_shelf_master";
        $retval = $this->query($query);
        $rval["status"] = true;
        if ($this->assign_retval_error($retval)){
            $retval2 = $this->fetch_row();
            while ($retval2["status"]){
                $row = $retval2["retval"];
-               $this->author_list[$row[0]] = $row[1];
+               $this->shelf_list[$row[0]] = $row[1];
                $this->id_list[$row[1]] = $row[0];
                $retval2 = $this->fetch_row();
            }
@@ -82,12 +82,12 @@ class cls_author_list extends cls_dbcon{
    }
    
    /**
-    * THis gets 5 authors based on the frist string
+    * THis gets 5 shelfs based on the frist string
     * @param string $str
     */
    public function get_partial_list($str){
        $cma = "";
-       foreach ($this->author_list as $value) {
+       foreach ($this->shelf_list as $value) {
            if (preg_match("/$str/", $value)){
                print $cma . $value;
            } else {

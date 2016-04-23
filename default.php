@@ -29,9 +29,15 @@ include_once dirname(__FILE__) . '/cls_author.php';
 include_once dirname(__FILE__) . '/cls_shelf_list.php';
 include_once dirname(__FILE__) . '/cls_shelf.php';
 
-switch ($_REQUEST["PAGE"]){
+$plain_string_options = array("options"=>array("regexp"=>"/^[A-Za-z0-9_]+$/"));
+$multiword_string_options = array("options"=>array("regexp"=>"/^[A-Za-z0-9_ \.]+$/"));
+
+
+$page = filter_input(INPUT_GET, "PAGE",FILTER_VALIDATE_REGEXP,$plain_string_options);
+switch ($page){
     case "language__add" :
-        $clsdb = new cls_language($_REQUEST["LANGUAGE"]);
+        $language = filter_input(INPUT_GET, "LANGUAGE",FILTER_VALIDATE_REGEXP,$plain_string_options);
+        $clsdb = new cls_language($language);
         if (!$clsdb->status){
             trigger_error("unable to add new language", E_USER_ERROR);
         }
@@ -51,8 +57,9 @@ switch ($_REQUEST["PAGE"]){
         break;
     case "language_list__partial_get" :
         $clslnl = new cls_language_list();
+        $partial_string = filter_input(INPUT_GET, "PARTIAL",FILTER_VALIDATE_REGEXP,$plain_string_options);
         if ($clslnl->status){
-            $retval1 = $clslnl->get_partial_list($_REQUEST["PARTIAL"]);
+            $retval1 = $clslnl->get_partial_list($partial_string);
             if ($clslnl->assign_retval_error($retval1)){
                 
             }
@@ -61,7 +68,8 @@ switch ($_REQUEST["PAGE"]){
         }
         break;
     case "author__add" :
-        $clsdb = new cls_author($_REQUEST["AUTHOR"]);
+        $author = filter_input(INPUT_GET, "PARTIAL",FILTER_VALIDATE_REGEXP,$multiword_string_options);
+        $clsdb = new cls_author($author);
         if (!$clsdb->status){
             trigger_error("unable to add new author", E_USER_ERROR);
         }
@@ -80,8 +88,10 @@ switch ($_REQUEST["PAGE"]){
         }
         break;
     case "shelf__add" :
+        $shelf = filter_input(INPUT_GET, "SHELF",FILTER_VALIDATE_REGEXP,$plain_string_options);        
+        $shelf_address = filter_input(INPUT_GET, "PARTIAL",FILTER_VALIDATE_REGEXP,$multiword_string_options);
         
-        $clsdb = new cls_shelf($_REQUEST["SHELF"],$_REQUEST["SHELF_ADDRESS"]);
+        $clsdb = new cls_shelf($shelf,$shelf_address);
         if (!$clsdb->status){
             trigger_error("unable to add new shelf", E_USER_ERROR);
         }

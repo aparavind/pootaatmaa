@@ -86,11 +86,11 @@ class cls_shelf extends cls_dbcon {
         
     }
     
-    public function create_shelf($shelf,$shelf_location = ""){
+    public function create_shelf($shelf,$shelf_address = ""){
         $this->last_action = 1;
         $names[] = "shelf";
         $values[] = "'$shelf'";
-        if ($shelf_location) {
+        if ($shelf_address) {
             $names[] = "shelf_address";
             $values[] = "'$shelf_location'";
         }

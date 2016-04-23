@@ -64,15 +64,17 @@ class cls_shelf_list extends cls_dbcon{
    }
    
    public function populate_list(){
-       $query = "select shelf,shelfid from db_shelf_master";
+       $query = "select shelf,shelfid,shelf_address from db_shelf_master";
        $retval = $this->query($query);
        $rval["status"] = true;
        if ($this->assign_retval_error($retval)){
            $retval2 = $this->fetch_row();
            while ($retval2["status"]){
                $row = $retval2["retval"];
-               $this->shelf_list[$row[0]] = $row[1];
-               $this->id_list[$row[1]] = $row[0];
+               $this->shelf_list[$row[0]]["shelf_name"] = $row[1];
+               $this->id_list[$row[1]]["shelf_id"] = $row[0];
+               $this->shelf_list[$row[0]]["shelf_address"] = $row[2];
+               $this->id_list[$row[1]]["shelf_address"] = $row[2];
                $retval2 = $this->fetch_row();
            }
        } else {

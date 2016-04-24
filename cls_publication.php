@@ -18,42 +18,42 @@
  */
 
 /**
- * Description of cls_shelf
+ * Description of cls_publication
  *
- * @shelf admin
+ * @publication admin
  */
 require_once dirname(__FILE__) . "/cls_dbcon.php";
-class cls_shelf extends cls_dbcon {
+class cls_publication extends cls_dbcon {
     /**
      *
      * @var string
      */
-    public $current_shelf;
+    public $current_publication;
     
     /**
      *
      * @var int
      */
-    public $shelfid;
+    public $publicationid;
     
     /**
      * values are 
-     * 1 : create shelf
-     * 2 : delete shelf
-     * 3 : add shelf
-     * 4 : check shelf exists
+     * 1 : create publication
+     * 2 : delete publication
+     * 3 : add publication
+     * 4 : check publication exists
      * @var int
      */
     public $last_action;
     
-    public function __construct($shelf,$shelf_address = NULL) {
-        $this->tableName = "db_shelf_master";
+    public function __construct($publication,$publication_series = NULL) {
+        $this->tableName = "db_publication_master";
         parent::__construct();
-        $rval2 = $this->exists($shelf);
+        $rval2 = $this->exists($publication);
         if ($this->assign_retval_error($rval2)){
             if (! $rval2["retval"]["status"]){
 
-                $rval = $this->create_shelf($shelf,$shelf_address);
+                $rval = $this->create_publication($publication,$publication_series);
                 $this->assign_retval_error($rval);
             }
         } else {
@@ -62,18 +62,18 @@ class cls_shelf extends cls_dbcon {
         }
     }
     
-    public function exists($shelf){
-        $query = "select shelfid from db_shelf_master where shelf = '$shelf'";
+    public function exists($publication){
+        $query = "select publicationid from db_publication_master where publication = '$publication'";
         $retval["status"] = false;
         $rval = $this->query($query);
         if ($rval["status"]){
-            $this->status = 4;   // assuming the shelf is not created
+            $this->status = 4;   // assuming the publication is not created
             $retval["status"] = true;  // As the query has suceeded
             $rval2 = $this->fetch_row();
             if ($rval2["status"]){
-                $this->shelfid = $rval2["retval"][0];
+                $this->publicationid = $rval2["retval"][0];
                 $this->status = 1;
-                $retval["retval"]["shelfid"] = $rval2["retval"][0];
+                $retval["retval"]["publicationid"] = $rval2["retval"][0];
                 $retval["retval"]["status"] = TRUE;
             } else {
                 $retval["retval"]["status"] = FALSE;
@@ -86,15 +86,15 @@ class cls_shelf extends cls_dbcon {
         
     }
     
-    public function create_shelf($shelf,$shelf_address = ""){
+    public function create_publication($publication,$publication_series = ""){
         $this->last_action = 1;
-        $names[] = "shelf";
-        $values[] = "'$shelf'";
-        if ($shelf_address) {
-            $names[] = "shelf_address";
-            $values[] = "'$shelf_address'";
+        $names[] = "publication";
+        $values[] = "'$publication'";
+        if ($publication_series) {
+            $names[] = "publication_series";
+            $values[] = "'$publication_series'";
         }
-        $query = "insert into  db_shelf_master (". 
+        $query = "insert into  db_publication_master (". 
                 implode(",", $names).
                 ") values(".
                 implode(",",$values) .
@@ -107,7 +107,7 @@ class cls_shelf extends cls_dbcon {
                 $this->status = 2;
                 $retval["status"] = true;
                 $retval["rval"] = $rval2["rval"];
-                $this->shelfid = $rval2["rval"];
+                $this->publicationid = $rval2["rval"];
             } else {
                 $this->status = 0;
                 $retval = $rval2;

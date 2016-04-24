@@ -89,7 +89,7 @@ switch ($page){
         break;
     case "shelf__add" :
         $shelf = filter_input(INPUT_GET, "SHELF",FILTER_VALIDATE_REGEXP,$plain_string_options);        
-        $shelf_address = filter_input(INPUT_GET, "PARTIAL",FILTER_VALIDATE_REGEXP,$multiword_string_options);
+        $shelf_address = filter_input(INPUT_GET, "SHELF_ADDRESS",FILTER_VALIDATE_REGEXP,$multiword_string_options);
         
         $clsdb = new cls_shelf($shelf,$shelf_address);
         if (!$clsdb->status){
@@ -98,6 +98,28 @@ switch ($page){
         break;
     case "shelf_list__get" :
         $clslnl = new cls_shelf_list();
+        if ($clslnl->status){
+            $retval1 = $clslnl->populate_list();
+            if (!$retval1["status"]){
+                trigger_error("Error populating list", E_USER_ERROR);
+            } else {
+                print _format_json(json_encode($clslnl->id_list));
+            }
+        } else {
+            trigger_error("Error creating the list class", E_USER_ERROR);
+        }
+        break;
+    case "publication__add" :
+        $publication = filter_input(INPUT_GET, "PUBLICATION",FILTER_VALIDATE_REGEXP,$plain_string_options);        
+        $publication_series = filter_input(INPUT_GET, "PUBLICATION_SERIES",FILTER_VALIDATE_REGEXP,$plain_string_options);
+        
+        $clsdb = new cls_publication($publication,$publication_series);
+        if (!$clsdb->status){
+            trigger_error("unable to add new publication", E_USER_ERROR);
+        }
+        break;
+    case "publication_list__get" :
+        $clslnl = new cls_publication_list();
         if ($clslnl->status){
             $retval1 = $clslnl->populate_list();
             if (!$retval1["status"]){

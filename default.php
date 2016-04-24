@@ -131,16 +131,31 @@ switch ($page){
             trigger_error("Error creating the list class", E_USER_ERROR);
         }
         break;
-    case book__add:
-        $book_name = $_REQUEST["BNAME"];
-        $book_author = $_REQUEST["BAUTHOR_ID"];
-        $book_publication = $_REQUEST["BPUBLICATION_ID"];
-        $book_shelf = $_REQUEST["BSHELF_ID"];
+    case "book__add" :
+        $book = filter_input(INPUT_GET, "BOOK",FILTER_VALIDATE_REGEXP,$plain_string_options);        
+        $publicationid = filter_input(INPUT_GET, "PUBLICATIONID",FILTER_VALIDATE_INT);
+        $authorid = filter_input(INPUT_GET, "AUTHORID",FILTER_VALIDATE_INT);
+        $shelfid = filter_input(INPUT_GET, "SHELFID",FILTER_VALIDATE_INT);
+        $publication_series = filter_input(INPUT_GET, "PUBLICATION_SERIES",FILTER_VALIDATE_REGEXP,$multiword_string_options);
+       $clsdb = new cls_book($book,$publicationid,$authorid,$shelfid,$publication_series);
+        if (!$clsdb->status){
+            trigger_error("unable to add new book", E_USER_ERROR);
+        }
+        break;
+    case "book_list__get" :
+        $clslnl = new cls_book_list();
+        if ($clslnl->status){
+            $retval1 = $clslnl->populate_list();
+            if (!$retval1["status"]){
+                trigger_error("Error populating list", E_USER_ERROR);
+            } else {
+                print _format_json(json_encode($clslnl->id_list));
+            }
+        } else {
+            trigger_error("Error creating the list class", E_USER_ERROR);
+        }
+        break;
         
         
     
 }
-
-
-
-?>

@@ -50,7 +50,6 @@ class cls_language extends cls_dbcon {
         $this->tableName = "db_language_master";
         parent::__construct();
         $rval2 = $this->exists($language);
-        print_r($rval2);
         if ($this->assign_retval_error($rval2)){
             if (! $rval2["retval"]["status"]){
                 $rval = $this->create_language($language);

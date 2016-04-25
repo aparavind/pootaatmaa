@@ -41,6 +41,7 @@ function myErrorHandler($errno, $errstr, $errfile, $errline){
 
     case E_USER_NOTICE:
         echo "<b>My NOTICE</b> [$errno] $errstr [$errfile], $errline<br />\n";
+        error_log("<b>My NOTICE</b> [$errno] $errstr [$errfile], $errline<br />\n");
         break;
 
     default:

@@ -44,8 +44,6 @@ switch ($page){
         if (!$clsdb->status){
             trigger_error("unable to add new language", E_USER_ERROR);
         }
-        trigger_error("");
-        ob_end_clean();
         print _format_json(json_encode(array("language added",$clsdb->languageid)));
         break;
     case "language_list__get" :
@@ -74,11 +72,12 @@ switch ($page){
         }
         break;
     case "author__add" :
-        $author = filter_input(INPUT_POST, "PARTIAL",FILTER_VALIDATE_REGEXP,$multiword_string_options);
+        $author = filter_input(INPUT_POST, "AUTHOR",FILTER_VALIDATE_REGEXP,$multiword_string_options);
         $clsdb = new cls_author($author);
         if (!$clsdb->status){
             trigger_error("unable to add new author", E_USER_ERROR);
-        }
+        } 
+        print _format_json(json_encode(array("Author added",$clsdb->authorid)));
         break;
     case "author_list__get" :
         $clslnl = new cls_author_list();

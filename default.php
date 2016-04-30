@@ -35,7 +35,11 @@ $page = filter_input(INPUT_POST, "PAGE",FILTER_VALIDATE_REGEXP,$plain_string_opt
 $activity = split("__",$page);
 $parent = $activity[0];
 
-call_user_func($activity[0],$activity);
+$out_array = call_user_func($activity[0],$activity);
+if (!$out_array["status"]){
+    trigger_error("Unable to get the out string");
+}
+print _format_json(json_encode($out_array["retval"]));
 
 
 
@@ -43,25 +47,25 @@ function language($activity,$subactivity){
     if ($activity != 'language'){
         trigger_error("FUNCTION NOT MATCHED",E_USER_ERROR);
     }
+
+    $language = filter_input(INPUT_POST, "LANGUAGE",FILTER_VALIDATE_REGEXP,$GLOBALS["plain_string_options"]);
+    $clsdb = new cls_language($language);
+
     
     switch ($subactivity){
         case "add":
-        trigger_error("");
-        trigger_error("");
-        if (!$clsdb->status){
-            trigger_error("unable to add new language", E_USER_ERROR);
-        }
-        print _format_json(json_encode(array("language added",$clsdb->languageid)));
-        break;
+            return language__add($clsdb);
     }
 }
 
 
 function language__add($clsdb){
-        $language = filter_input(INPUT_POST, "LANGUAGE",FILTER_VALIDATE_REGEXP,$GLOBALS["plain_string_options"]);
-        $clsdb = new cls_language($language);
-    
-    
+    if (!$clsdb->status){
+        trigger_error("unable to add new language", E_USER_ERROR);
+    }
+    $retval["status"] = true;
+    $retval["retval"] = array("language added",$clsdb->languageid);
+    return $retval;
 }
 
 function language_list($activity,$subactivity){
@@ -79,18 +83,10 @@ function language_list($activity,$subactivity){
     
     switch ($subactivity){
         case "get":
-            $display_string = language_list__get($clslnl);
-            break;
+            return language_list__get($clslnl);
         case "partial_get" :
-            $display_string = language_list__partial_get($clslnl);
-            break;
+            return language_list__partial_get($clslnl);
     }
-    
-    if (!$display_string["status"]){
-        trigger_error("unable to display list",E_USER_ERROR);
-    }
-    
-    print _format_json($display_string["retval"]);
 }
 
 
@@ -120,15 +116,6 @@ function language_list__partial_get($clslnl){
 
 
 switch ($page){
-    case "language_list__partial_get" :
-        $clslnl = new cls_language_list();
-        if ($clslnl->status){
-                
-            }
-        } else {
-            trigger_error("Error creating the list class", E_USER_ERROR);
-        }
-        break;
     case "author__add" :
         $author = filter_input(INPUT_POST, "AUTHOR",FILTER_VALIDATE_REGEXP,$multiword_string_options);
         $clsdb = new cls_author($author);

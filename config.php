@@ -21,3 +21,7 @@ $GLOBALS["DBHOST"] = "localhost";
 $GLOBALS["DBUSER"] = "u993810798_hari";
 $GLOBALS["DBPASS"] = "h35DheNyBY";
 $GLOBALS["DBNAME"] = "u993810798_hari";
+
+
+$GLOBALS["plain_string_options"] = array("options"=>array("regexp"=>"/^[A-Za-z0-9_]+$/"));
+$GLOBALS["multiword_string_options"] = array("options"=>array("regexp"=>"/^[A-Za-z0-9_ \.]+$/"));

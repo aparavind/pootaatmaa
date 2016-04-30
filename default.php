@@ -29,15 +29,24 @@ include_once dirname(__FILE__) . '/cls_author.php';
 include_once dirname(__FILE__) . '/cls_shelf_list.php';
 include_once dirname(__FILE__) . '/cls_shelf.php';
 
-$plain_string_options = array("options"=>array("regexp"=>"/^[A-Za-z0-9_]+$/"));
-$multiword_string_options = array("options"=>array("regexp"=>"/^[A-Za-z0-9_ \.]+$/"));
-
 
 $page = filter_input(INPUT_POST, "PAGE",FILTER_VALIDATE_REGEXP,$plain_string_options);
-switch ($page){
-    case "language__add" :
-        trigger_error("");
-        $language = filter_input(INPUT_POST, "LANGUAGE",FILTER_VALIDATE_REGEXP,$plain_string_options);
+
+$activity = split("__",$page);
+$parent = $activity[0];
+
+call_user_func($activity[0],$activity);
+
+
+
+function language($activity,$subactivity){
+    if ($activity != 'language'){
+        trigger_error("FUNCTION NOT MATCHED",E_USER_ERROR);
+    }
+    
+    switch ($subactivity){
+        case "add":
+        $language = filter_input(INPUT_POST, "LANGUAGE",FILTER_VALIDATE_REGEXP,$GLOBALS["plain_string_options"]);
         trigger_error("");
         $clsdb = new cls_language($language);
         trigger_error("");
@@ -46,19 +55,35 @@ switch ($page){
         }
         print _format_json(json_encode(array("language added",$clsdb->languageid)));
         break;
-    case "language_list__get" :
-        $clslnl = new cls_language_list();
-        if ($clslnl->status){
+    }
+}
+
+function language_list($activity,$subactivity){
+    if ($activity != 'language_list'){
+        trigger_error("FUNCTION NOT MATCHED",E_USER_ERROR);
+    }
+    
+    switch ($subactivity){
+        case "get":
+            $clslnl = new cls_language_list();
+            if (! $clslnl->status){
+                trigger_error("Error creating the list class", E_USER_ERROR);
+            }
             $retval1 = $clslnl->populate_list();
             if (!$retval1["status"]){
                 trigger_error("Error populating list", E_USER_ERROR);
-            } else {
-                print _format_json(json_encode($clslnl->id_list));
             }
-        } else {
-            trigger_error("Error creating the list class", E_USER_ERROR);
-        }
-        break;
+            print _format_json(json_encode($clslnl->id_list));
+            break;
+    }
+}
+
+
+
+switch ($page){
+    case "language__add" :
+        trigger_error("");
+  case "language_list__get" :
     case "language_list__partial_get" :
         $clslnl = new cls_language_list();
         $partial_string = filter_input(INPUT_POST, "PARTIAL",FILTER_VALIDATE_REGEXP,$plain_string_options);

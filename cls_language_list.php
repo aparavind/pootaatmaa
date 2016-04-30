@@ -90,13 +90,13 @@ class cls_language_list extends cls_dbcon{
     * @param string $str
     */
    public function get_partial_list($str){
-       $retval["retval"] = array();
+       $retval["retval"]["languages"] = array();
        $retval["retval"]["count"] = 0;
        $retval["status"] = true;
        foreach ($this->language_list as $value) {
            if (preg_match("/$str/", $value)){
                $retval["retval"]["count"] ++;
-               $retval["retval"][] =  $value;
+               $retval["retval"]["languages"] =  $value;
            } 
        }
        return $retval;

@@ -46,9 +46,7 @@ function language($activity,$subactivity){
     
     switch ($subactivity){
         case "add":
-        $language = filter_input(INPUT_POST, "LANGUAGE",FILTER_VALIDATE_REGEXP,$GLOBALS["plain_string_options"]);
         trigger_error("");
-        $clsdb = new cls_language($language);
         trigger_error("");
         if (!$clsdb->status){
             trigger_error("unable to add new language", E_USER_ERROR);
@@ -58,38 +56,73 @@ function language($activity,$subactivity){
     }
 }
 
+
+function language__add($clsdb){
+        $language = filter_input(INPUT_POST, "LANGUAGE",FILTER_VALIDATE_REGEXP,$GLOBALS["plain_string_options"]);
+        $clsdb = new cls_language($language);
+    
+    
+}
+
 function language_list($activity,$subactivity){
+   
+    // Trigger Error and exit if activity is not proper
     if ($activity != 'language_list'){
         trigger_error("FUNCTION NOT MATCHED",E_USER_ERROR);
     }
     
+    // New language list class
+    $clslnl = new cls_language_list();
+    if (! $clslnl->status){
+        trigger_error("Error creating the list class", E_USER_ERROR);
+    }
+    
     switch ($subactivity){
         case "get":
-            $clslnl = new cls_language_list();
-            if (! $clslnl->status){
-                trigger_error("Error creating the list class", E_USER_ERROR);
-            }
-            $retval1 = $clslnl->populate_list();
-            if (!$retval1["status"]){
-                trigger_error("Error populating list", E_USER_ERROR);
-            }
-            print _format_json(json_encode($clslnl->id_list));
+            $display_string = language_list__get($clslnl);
+            break;
+        case "partial_get" :
+            $display_string = language_list__partial_get($clslnl);
             break;
     }
+    
+    if (!$display_string["status"]){
+        trigger_error("unable to display list",E_USER_ERROR);
+    }
+    
+    print _format_json($display_string["retval"]);
 }
+
+
+function language_list__get($clslnl){
+    $retval1 = $clslnl->populate_list();
+    if (!$retval1["status"]){
+        trigger_error("Error populating list", E_USER_ERROR);
+    }
+    $retval["status"] = true;
+    $retval["retval"] = json_encode($clslnl->id_list);
+    return $retval;
+}
+
+
+function language_list__partial_get($clslnl){
+    $partial_string = filter_input(INPUT_POST, "PARTIAL",FILTER_VALIDATE_REGEXP,$GLOBALS["plain_string_options"]);
+    $retval1 = $clslnl->get_partial_list($partial_string);
+    if (!$clslnl->assign_retval_error($retval1)){
+        trigger_error("UNABLE TO RETRIEVE PARTIAL STRING",E_USER_ERROR);
+    }
+    $retval["status"] = TRUE;
+    $retval["retval"] = json_encode($retval1["retval"]);
+    return $retval;
+}    
+    
 
 
 
 switch ($page){
-    case "language__add" :
-        trigger_error("");
-  case "language_list__get" :
     case "language_list__partial_get" :
         $clslnl = new cls_language_list();
-        $partial_string = filter_input(INPUT_POST, "PARTIAL",FILTER_VALIDATE_REGEXP,$plain_string_options);
         if ($clslnl->status){
-            $retval1 = $clslnl->get_partial_list($partial_string);
-            if ($clslnl->assign_retval_error($retval1)){
                 
             }
         } else {

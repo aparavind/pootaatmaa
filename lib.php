@@ -80,3 +80,8 @@ function error_json($reason){
     
  //   return $
 }
+
+function array_html_formatted_json($arr){
+    print _format_json(json_encode($arr),TRUE);
+};
+

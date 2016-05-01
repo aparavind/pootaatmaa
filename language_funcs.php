@@ -21,7 +21,7 @@ function language($activity,$subactivity){
     if ($activity != 'language'){
         trigger_error("FUNCTION NOT MATCHED",E_USER_ERROR);
     }
-
+    
     $language = filter_input(INPUT_POST, "LANGUAGE",FILTER_VALIDATE_REGEXP,$GLOBALS["plain_string_options"]);
     $clsdb = new cls_language($language);
 

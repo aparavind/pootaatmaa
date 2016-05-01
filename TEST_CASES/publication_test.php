@@ -1,3 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            This is a test interfacer
+        </title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+    </head>
+    <body>
+        <form action="http://localhost/pootaatmaa/default.php" method="POST">
+            <input name="PAGE" />
+            <input name="LANGUAGE" />
+            <input type="submit" />
+        </form>
+    </body>
+</html>
+
+
+
+
+
+
 <?php
 
 /* 
@@ -17,5 +39,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-$url = "http://localhost/pootaatmaa/default.php";
-$
+
+
+        
+       

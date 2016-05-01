@@ -39,8 +39,11 @@ $page = filter_input(INPUT_POST, "PAGE",FILTER_VALIDATE_REGEXP,$plain_string_opt
 
 $activity = split("__",$page);
 $parent = $activity[0];
+    
+$out_array = call_user_func_array($activity[0],$activity);
 
-$out_array = call_user_func($activity[0],$activity);
+
+
 if (!$out_array["status"]){
     trigger_error("Unable to get the out string");
 }

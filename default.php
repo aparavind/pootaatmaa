@@ -30,10 +30,10 @@ include_once dirname(__FILE__) . '/cls_shelf_list.php';
 include_once dirname(__FILE__) . '/cls_shelf.php';
 
 include_once dirname(__FILE__) . '/language_funcs.php';
-include_once dirname(__FILE__) . "./author_funcs.php";
-include_once dirname(__FILE__) . "./shelf_funcs.php";
-include_once dirname(__FILE__) . "./publication_funcs.php";
-include_once dirname(__FILE__) . "./book_funcs.php";
+include_once dirname(__FILE__) . "/author_funcs.php";
+include_once dirname(__FILE__) . "/shelf_funcs.php";
+include_once dirname(__FILE__) . "/publication_funcs.php";
+include_once dirname(__FILE__) . "/book_funcs.php";
 
 $page = filter_input(INPUT_POST, "PAGE",FILTER_VALIDATE_REGEXP,$plain_string_options);
 

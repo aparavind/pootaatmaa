@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/develop/Projects/pootaatmaa/cls_funcs.php</file>
-            <file>file:/develop/Projects/pootaatmaa/publication_funcs.php</file>
-            <file>file:/develop/Projects/pootaatmaa/poorva</file>
-            <file>file:/develop/Projects/pootaatmaa/shelf_funcs.php</file>
-            <file>file:/develop/Projects/pootaatmaa/default.php</file>
-            <file>file:/develop/Projects/pootaatmaa/book_funcs.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/cls_book.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/lib.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/cls_book_list.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/TEST_CASES/publication_test.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/language_funcs.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/default.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/cls_language.php</file>
+            <file>file:/C:/apps/projects/pootaatmaa/initialize.sql</file>
         </group>
     </open-files>
 </project-private>

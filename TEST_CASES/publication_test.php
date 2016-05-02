@@ -8,8 +8,11 @@
     </head>
     <body>
         <form action="http://localhost/pootaatmaa/default.php" method="POST">
-            <input name="PAGE" />
-            <input name="LANGUAGE" />
+            PAGE <input name="PAGE" /><br>
+            LANGUAGE<input name="LANGUAGE" /><br>
+            AUTHOR<input name="AUTHOR" /><br>
+            PUBLICATION<input name="PUBLICATION" /><br>
+            PUBLICATION_SERIES<input name="PUBLICATION_SERIES" /><br>
             <input type="submit" />
         </form>
     </body>
